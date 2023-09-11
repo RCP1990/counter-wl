@@ -1,0 +1,42 @@
+// Generate media queries
+// EXAMPLE: include everything below & EXCLUDING medium:  createBreakPoint(below, medium)
+// EXAMPLE: include everything above & INCLUDING medium: createBreakPoint(above, medium)
+// EXAMPLE: include everything above & INCLUDING small AND below & EXCLUDING large: createBreakPoint(between, small, large)
+@mixin createBreakPoint($direction, $breakpoint_first, $breakpoint_second: 'undefined') {
+  // build from this string
+  $breakpoint_string: '';
+  $breakpoint_number1: map-get($breakpoints, $breakpoint_first);
+
+  // make sure valid breakpoint was passed
+  @if $breakpoint_number1 == null {
+    @error 'Invalid breakpoint value.';
+  }
+
+  // build media query
+  @if $direction == above {
+    $breakpoint_string: '(min-width:' + $breakpoint_number1 + ')';
+  } @else if $direction == below {
+    $breakpoint_number1: $breakpoint_number1 - 1;
+    $breakpoint_string: '(max-width:' + $breakpoint_number1 + ')';
+  } @else if $direction == between {
+    // since this references the start of another breakpoint, subract one to get the max of the previous breakpoint
+    $breakpoint_number2: map-get($breakpoints, $breakpoint_second) - 1;
+
+    $low: strip-unit($breakpoint_number1);
+    $high: strip-unit($breakpoint_number2);
+
+    @if $low > $high {
+      // error on bad breakpoint params to enforce good habits
+      @error 'Breakpoint 1 cannot be higher than breakpoint 2.';
+    }
+
+    $breakpoint_string: '(min-width:' + $breakpoint_number1 + ') and (max-width:' + $breakpoint_number2 + ')';
+  } @else {
+    // error on bad $direciton value
+    @error 'Invalid value for $direction, must be above|below|between';
+  }
+
+  @media #{$breakpoint_string} {
+    @content;
+  }
+}

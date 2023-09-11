@@ -1,0 +1,39 @@
+// Fonts
+$font-body: 'Noto Sans', sans-serif;
+
+// Base font sizes across breakpoints
+$base-font--large: 18px;
+$base-font--medium: 17px;
+$base-font--small: 16px;
+
+// Colors
+$white: #FFFFFF;
+$black: #000000;
+$primary: #027ABB;
+$primary-dark: #005D8F;
+$primary-light: #02A2F7;
+$primary-extra-light: #68C9FD;
+
+//***Remove once buttons.scss is updated to new color var names***
+$primary-one: #027ABB;
+$primary-two: #005D8F;
+
+$secondary: #333333;
+
+$tertiary: #DCDDDE;
+$tertiary-dark: #A7AAAC;
+$tertiary-light: #F2F2F2;
+
+$error-red: #B50000;
+$success-green: #0A7305;
+
+// Breakpoints
+$breakpoints: (
+  min: 0px,
+  xsmall: 320px,
+  small: 420px,
+  medium: 600px,
+  large: 960px,
+  xlarge: 1200px,
+  xxlarge: 1366px
+);
